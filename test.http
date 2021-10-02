@@ -1,25 +1,16 @@
 ### GET root
 GET http://127.0.0.1:3000 HTTP/1.1
 
-
-
-
-
 ### GET items
 GET http://127.0.0.1:3000/items HTTP/1.1
 
-
 ### GET item
-GET http://127.0.0.1:3000/items/10 HTTP/1.1
-
-
-
-
-
+GET http://127.0.0.1:3000/items/1 HTTP/1.1
 
 ### POST item
 POST http://127.0.0.1:3000/items/ HTTP/1.1
 Content-Type: application/json
+
 {
     "name": "New Item"
 }
@@ -30,6 +21,7 @@ DELETE http://127.0.0.1:3000/items/1 HTTP/1.1
 ### UPDATE item
 PUT http://127.0.0.1:3000/items/1 HTTP/1.1
 Content-Type: application/json
+
 {
     "name": "Updated Item"
 }
