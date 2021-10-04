@@ -3,7 +3,7 @@ import fp from 'fastify-plugin';
 export interface SupportPluginOptions {}
 
 export default fp<SupportPluginOptions>(async (fastify) => {
-  fastify.decorate('someSupport', function () {
+  fastify.decorate('someSupport', () => {
     return 'hugs';
   });
 });
