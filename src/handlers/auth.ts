@@ -6,16 +6,13 @@ const postJoinHandler = async (
     const { username, password } = request.body;
     const token = await reply.jwtSign({ username, password });
 
-    // const test = await this.mongo.db.collection('users');
-    const t = this;
-    if (t) {
-      const test = t.mongo.client.db('mydb').collection('users');
-      test.insertOne({
-        username,
-        password,
-      });
-      console.log(test);
-    }
+    const test = await request.mongo.db.collection('users');
+
+    test.insertOne({
+      username,
+      password,
+    });
+    console.log(test);
 
     return reply.code(201).send(token);
   } catch (error) {
