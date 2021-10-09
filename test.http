@@ -31,10 +31,10 @@ POST http://127.0.0.1:3000/auth/join HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "username",
-    "password": "password",
-    "email": "email@email.com",
-    "fullname": "fullname"
+    "username": "usernamer",
+    "password": "passwordr",
+    "email": "emaili@emailr.com",
+    "fullName": "fullnameor"
 }
 
 ### Auth Login

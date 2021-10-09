@@ -1,20 +1,43 @@
-const postJoinHandler = async (
+const postJoinHandler = async function (
+  this: any,
   request: any,
   reply: any
-): Promise<{ id: string; name: string }> => {
+): Promise<any> {
   try {
-    const { username, password } = request.body;
-    const token = await reply.jwtSign({ username, password });
+    const { username, password, email, fullName } = request.body;
+    const users = await this.mongo.db.collection('users');
 
-    const test = await request.mongo.db.collection('users');
-
-    test.insertOne({
+    const userArray = await users
+      .find({ $or: [{ username }, { email }] })
+      .toArray();
+    if (userArray.length > 0) {
+      return reply
+        .code(403)
+        .send({ message: 'Username or email already exists' });
+    }
+    const hash = await this.bcrypt.hash(password);
+    const insert = await users.insertOne({
       username,
-      password,
+      password: hash,
+      email,
+      fullName,
     });
-    console.log(test);
+    if (insert.acknowledged) {
+      const userId = insert.insertedId.toString().split('"')[0];
+      const token = await this.jwt.sign({ userId });
+      // TODO: Send cookie and email
 
-    return reply.code(201).send(token);
+      reply.setCookie('myAppCookie', token, {
+        domain: process.env.DOMAIN,
+        path: '/',
+        signed: true,
+        httpOnly: true,
+      });
+
+      return reply.code(201).send(token);
+    } else {
+      return reply.send(500);
+    }
   } catch (error) {
     request.log.error(error);
     return reply.send(400);

@@ -10,7 +10,7 @@ export default fp(async (fastify) => {
         corsOptions = { origin: false };
       } else {
         corsOptions = {
-          origin: '/example.com$/',
+          origin: `/${process.env.DOMAIN}$/`,
           methods: ['GET', 'POST', 'PATCH', 'DELETE'],
         };
       }

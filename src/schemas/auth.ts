@@ -27,7 +27,7 @@ const postJoinSchema = {
   schema: {
     body: {
       type: 'object',
-      required: ['username', 'password', 'email', 'fullname'],
+      required: ['username', 'password', 'email', 'fullName'],
       properties: {
         name: { type: 'string' },
         password: { type: 'string' },

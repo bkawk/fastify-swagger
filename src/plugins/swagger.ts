@@ -11,7 +11,7 @@ export default fp<SwaggerOptions>(async (fastify) => {
         version: '0.1.0',
       },
       externalDocs: {
-        url: 'https://myapp.com/docs',
+        url: `https://${process.env.DOMAIN}/docs`,
         description: 'Find more info here',
       },
       host: '127.0.0.1:3000',
